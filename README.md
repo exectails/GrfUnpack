@@ -12,15 +12,16 @@ GrfUnpack.exe [options] <file> [output folder]
 ```
 
 ### file
-The archive to unpack.
+The PAK or GRF archive to unpack.
 
 ### output folder (optional)
-The path to extract files to. Defaults to './output', relative to the
+The path to extract files to. Defaults to `./output`, relative to the
 working directory.
 
 ### options (optional)
 #### -k
-If set, the extracted files will retain their original Korean encoding.
+If set, the names of the extracted files will retain their original
+Korean encoding.
 
 Examples
 -----------------------------------------------------------------------------
