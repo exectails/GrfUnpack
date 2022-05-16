@@ -8,7 +8,7 @@ Usage
 -----------------------------------------------------------------------------
 
 ```text
-GrfUnpacker.exe [options] <file> [output folder]
+GrfUnpack.exe [options] <file> [output folder]
 ```
 
 ### file
@@ -27,11 +27,11 @@ Examples
 
 Extract the contents of data.pak to the arcturus sub-folder.
 ```text
-GrfUnpacker.exe data.pak arcturus
+GrfUnpack.exe data.pak arcturus
 ```
 
 Extract the contents of pdata000.grf to the output sub-folder,
 using Korean file names.
 ```text
-GrfUnpacker.exe -k pdata000.grf
+GrfUnpack.exe -k pdata000.grf
 ```
