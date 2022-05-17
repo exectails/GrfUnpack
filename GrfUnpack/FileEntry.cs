@@ -11,7 +11,8 @@
 
 	public enum EntryType : byte
 	{
-		File = 1,
+		UncompressedFile = 0,
+		CompressedFile = 1,
 		Folder = 2,
 	}
 }

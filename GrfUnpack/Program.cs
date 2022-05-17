@@ -132,7 +132,7 @@ namespace GrfUnpack
 					if (!Directory.Exists(outFilePath))
 						Directory.CreateDirectory(outFilePath);
 				}
-				else if (entry.Type == EntryType.File)
+				else if (entry.Type == EntryType.UncompressedFile || entry.Type == EntryType.CompressedFile)
 				{
 					var outFileParentPath = Path.GetDirectoryName(outFilePath);
 
@@ -141,8 +141,17 @@ namespace GrfUnpack
 
 					br.BaseStream.Seek(entry.Offset, SeekOrigin.Begin);
 
-					var compressed = br.ReadBytes(entry.SizeCompressed);
-					var uncompressed = UncompressData((ulong)entry.SizeCompressed, (ulong)entry.SizeOriginal, compressed);
+					byte[] uncompressed;
+
+					if (entry.Type == EntryType.UncompressedFile)
+					{
+						uncompressed = br.ReadBytes(entry.SizeCompressed);
+					}
+					else
+					{
+						var compressed = br.ReadBytes(entry.SizeCompressed);
+						uncompressed = UncompressData((ulong)entry.SizeCompressed, (ulong)entry.SizeOriginal, compressed);
+					}
 
 					File.WriteAllBytes(outFilePath, uncompressed);
 				}
