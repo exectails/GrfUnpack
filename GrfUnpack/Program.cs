@@ -57,12 +57,20 @@ namespace GrfUnpack
 			using (var fs = new FileStream(filePath, FileMode.Open))
 			using (var br = new BinaryReader(fs))
 			{
+				br.BaseStream.Seek(-1, SeekOrigin.End);
+				var b1 = br.ReadByte();
+
+				if (b1 != 0x12)
+				{
+					Console.WriteLine("Invalid format.");
+					return;
+				}
+
 				List<FileEntry> entries = null;
 
-				var signature = Encoding.ASCII.GetString(br.ReadBytes(5));
-
 				// PAK File (Arcturus, Version "0")
-				if (signature == "\0GRSC")
+				var fileType = Path.GetExtension(filePath);
+				if (fileType == ".pak")
 				{
 					try
 					{
@@ -77,7 +85,7 @@ namespace GrfUnpack
 				// GRF File (RO, Version "1")
 				// The only differences are that GRF uses encoded file names
 				// and a slightly different footer.
-				else if (signature == "\0GRAT")
+				else if (fileType == ".grf")
 				{
 					try
 					{
@@ -91,7 +99,7 @@ namespace GrfUnpack
 				}
 				else
 				{
-					Console.WriteLine("Invalid file format.");
+					Console.WriteLine("Unsupported file format.");
 					return;
 				}
 
